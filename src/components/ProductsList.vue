@@ -23,14 +23,14 @@
             {{ product.product_description }}
           </div>
           <div>{{ HelpersUtil.priceFormat(product.price) }}</div>
-          <Button
-            class="mb-auto"
-            :class="$style.cardBtn"
-            size="small"
-            label="Добавить в корзину"
-            icon="pi pi-cart-arrow-down"
-            @click.prevent="addToCart(product)"
-          />
+          <!--          <Button-->
+          <!--            class="mb-auto"-->
+          <!--            :class="$style.cardBtn"-->
+          <!--            size="small"-->
+          <!--            label="Добавить в корзину"-->
+          <!--            icon="pi pi-cart-arrow-down"-->
+          <!--            @click.prevent="addToCart(product)"-->
+          <!--          />-->
         </div>
       </RouterLink>
     </div>

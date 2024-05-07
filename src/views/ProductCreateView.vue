@@ -31,7 +31,7 @@
               placeholder="Выберите модель авто"
               option-label="model_name"
               option-value="model_id"
-              :custom-options="resources.car_models"
+              :custom-options="car_models"
             />
           </div>
           <div class="col-12 flex flex-column">
@@ -105,7 +105,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import AppFileUpload from '@/components/AppFileUpload.vue';
 import useAsyncHandler from '@/composables/useAsyncHandler.js';
 import { useRouter } from 'vue-router';
@@ -146,7 +146,7 @@ async function createProduct() {
   const onCatch = (e) => {
     toast.add({
       severity: 'error',
-      summary: e.response?.data?.message || `Не удалось создать тоар`,
+      summary: e.response?.data?.message || `Не удалось создать товар`,
       life: 4000
     });
   };
@@ -155,6 +155,14 @@ async function createProduct() {
 }
 
 const resources = ref({});
+
+const car_models = computed(() =>
+  resources.value.car_models
+    ? form.value.manufacturer_id
+      ? resources.value.car_models.filter((i) => i.manufacturer_id === form.value.manufacturer_id)
+      : resources.value.car_models
+    : []
+);
 
 async function getProductResources() {
   const res = await ProductsModel.getProductResources();

@@ -23,18 +23,18 @@
         <div class="font-semibold text-2xl">{{ HelpersUtil.priceFormat(product.price) }}</div>
         <p class="text-gray-400">{{ product.product_description }}</p>
         <div class="grid">
-          <div class="col">
-            <Button class="w-full" label="Купить" @click="addToCart()" />
-          </div>
-          <div class="col">
-            <Button
-              class="w-full"
-              severity="secondary"
-              label="Добавить в корзину"
-              icon="pi pi-cart-arrow-down"
-              @click="addToCart()"
-            />
-          </div>
+          <!--          <div class="col">-->
+          <!--            <Button class="w-full" label="Купить" @click="addToCart()" />-->
+          <!--          </div>-->
+          <!--          <div class="col">-->
+          <!--            <Button-->
+          <!--              class="w-full"-->
+          <!--              severity="secondary"-->
+          <!--              label="Добавить в корзину"-->
+          <!--              icon="pi pi-cart-arrow-down"-->
+          <!--              @click="addToCart()"-->
+          <!--            />-->
+          <!--          </div>-->
         </div>
       </div>
     </div>

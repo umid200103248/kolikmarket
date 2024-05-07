@@ -25,13 +25,21 @@
 <script setup>
 import { computed } from 'vue';
 import HeaderUserButton from '@/components/HeaderUserButton.vue';
+import { useUserStore } from '@/stores/useUserStore.js';
 
-const navLinks = computed(() => [
+const userStore = useUserStore();
+
+const headerMenu = [
   { id: 1, text: 'Главная', to: '/' },
   { id: 2, text: 'Каталог продуктов', to: '/products' },
-  { id: 3, text: 'Стать продавцом', to: '/register' },
   { id: 4, text: 'Контакты', to: '/contacts' }
-]);
+];
+
+const navLinks = computed(() =>
+  !userStore.isAuthenticated
+    ? [...headerMenu, { id: 3, text: 'Стать продавцом', to: '/register' }]
+    : [...headerMenu]
+);
 </script>
 
 <style lang="scss" scoped></style>

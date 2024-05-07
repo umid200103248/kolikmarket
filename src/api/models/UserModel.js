@@ -28,7 +28,7 @@ export default class UserModel {
     return ApiEndpoint.makeRequest('POST', '/auth/logout');
   }
 
-  static getEmailVerification() {
+  static emailVerify() {
     return ApiEndpoint.makeRequest('POST', '/auth/email/verify/send');
   }
 

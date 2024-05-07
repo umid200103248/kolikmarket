@@ -9,11 +9,12 @@ export const useUserStore = defineStore(
     const user = ref({});
 
     const isAuthenticated = computed(() => authToken.value != null);
+    const isEmailVerified = computed(() => !!user.value.email_verified_at);
 
     async function login(data) {
       const res = await UserModel.login(data);
       authToken.value = res.data.token;
-      // await getProfile();
+      await getProfile();
     }
 
     async function register(data) {
@@ -41,11 +42,11 @@ export const useUserStore = defineStore(
       authToken,
       user,
       isAuthenticated,
+      isEmailVerified,
       login,
       logout,
       register,
-      resetPassword,
-      getProfile
+      resetPassword
     };
   },
   {

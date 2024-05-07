@@ -31,16 +31,19 @@
 <script setup>
 import { useUserStore } from '@/stores/useUserStore.js';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import UserModel from '@/api/models/UserModel.js';
+import { useToast } from 'primevue/usetoast';
 
 const router = useRouter();
 const userStore = useUserStore();
+const toast = useToast();
 
 const { isAuthenticated } = storeToRefs(userStore);
 
 const menu = ref(null);
-const items = ref([
+const profileMenu = [
   {
     label: 'Мой профиль',
     items: [
@@ -61,11 +64,32 @@ const items = ref([
       }
     ]
   }
-]);
+];
+const items = computed(() =>
+  userStore.isEmailVerified
+    ? [...profileMenu]
+    : [
+        ...profileMenu,
+        {
+          label: 'Подтверждение почты',
+          icon: 'pi pi-inbox',
+          command: emailVerify
+        }
+      ]
+);
 
 function logout() {
   userStore.logout();
   router.push('/login');
+}
+
+async function emailVerify() {
+  const res = await UserModel.emailVerify();
+  toast.add({
+    severity: 'success',
+    summary: res.message,
+    life: 3000
+  });
 }
 
 const toggle = (event) => {

@@ -107,8 +107,8 @@ const onSelect = async (event) => {
   };
 };
 
-onMounted(() => {
-  getProfileInfo();
+onMounted(async () => {
+  await getProfileInfo();
 });
 </script>
 

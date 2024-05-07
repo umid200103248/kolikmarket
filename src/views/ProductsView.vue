@@ -5,7 +5,7 @@
       <div class="col-3 relative">
         <ProductsCategories class="sticky top-0 left-0" />
       </div>
-      <div class="col">
+      <div class="col-9">
         <ProductsList />
       </div>
     </div>
