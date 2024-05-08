@@ -2,10 +2,10 @@
   <div class="container px-4 py-8">
     <AppFilter />
     <div class="grid">
-      <div class="col-3 relative">
+      <div class="md:col-3 md:block hidden relative">
         <ProductsCategories class="sticky top-0 left-0" />
       </div>
-      <div class="col-9">
+      <div class="md:col-9 col-12">
         <ProductsList />
       </div>
     </div>

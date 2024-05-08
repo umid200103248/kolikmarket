@@ -8,10 +8,14 @@ const instance = axios.create({
 instance.interceptors.request.use(
   function (config) {
     const userStore = useUserStore();
+    // const router = useRouter();
 
     if (userStore.isAuthenticated) {
       config.headers['Authorization'] = `Bearer ${userStore.authToken}`;
     }
+    // else {
+    //   router.push('/login');
+    // }
 
     return config;
   },

@@ -23,7 +23,17 @@ export default class ProductsModel {
    * @param is_used {boolean}
    * @returns {Promise<*>}
    */
-  static createProduct({ category_id, product_name, description, photo, price, count, is_used }) {
+  static createProduct({
+    category_id,
+    product_name,
+    description,
+    photo,
+    price,
+    count,
+    is_used,
+    model_id,
+    manufacturer_id
+  }) {
     const data = {
       category_id,
       product_name,
@@ -31,10 +41,43 @@ export default class ProductsModel {
       photo,
       price,
       count,
-      is_used
+      is_used,
+      model_id,
+      manufacturer_id
     };
 
     return ApiEndpoint.makeRequest('POST', `/profiles/products`, data);
+  }
+
+  static editProduct({
+    product_id,
+    category_id,
+    product_name,
+    description,
+    photo,
+    price,
+    count,
+    is_used,
+    model_id,
+    manufacturer_id
+  }) {
+    const data = {
+      product_id,
+      category_id,
+      product_name,
+      description,
+      photo,
+      price,
+      count,
+      is_used,
+      model_id,
+      manufacturer_id
+    };
+
+    return ApiEndpoint.makeRequest('PUT', `/profiles/products/${product_id}`, data);
+  }
+  static deleteProduct(productId) {
+    return ApiEndpoint.makeRequest('DELETE', `/profiles/products/${productId}`);
   }
 
   static getFeedbacks(productId) {
@@ -48,8 +91,8 @@ export default class ProductsModel {
    * @param score {number}
    * @returns {Promise<*>}
    */
-  static sendFeedback({ product_id, service_id, content, score }) {
-    const data = { product_id, service_id, content, score };
+  static sendFeedback({ product_id, content, score, name }) {
+    const data = { product_id, content, score, name };
     return ApiEndpoint.makeRequest('POST', `/feedbacks`, data);
   }
 }

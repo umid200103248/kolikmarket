@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="md:w-6">
     <div class="text-xl font-bold">Отзывы о товаре</div>
     <Rating v-model="rating.score" :cancel="false" class="my-3" />
-    <InputGroup class="w-8">
+    <!-- <InputGroup class="w-8 hidden md:block">
       <InputText v-model="rating.content" placeholder="Напишите свое мнение о товаре" />
       <Button
         label="Поделиться"
@@ -11,16 +11,32 @@
         :loading="loading"
         @click="sendFeedback"
       />
-    </InputGroup>
+    </InputGroup> -->
+    <div class="flex flex-column gap-3">
+      <InputText v-model="name" placeholder="Напишите свое имя" />
+      <InputText v-model="rating.content" placeholder="Напишите свое мнение о товаре" />
+
+      <Button
+        label="Поделиться"
+        icon="pi pi-arrow-right"
+        icon-pos="right"
+        :loading="loading"
+        @click="sendFeedback"
+      />
+    </div>
     <div class="text-xl font-bold my-4">{{ feedbacks.length }} отзывов</div>
     <ul class="flex flex-column gap-3">
       <li
-        v-for="feedback in feedbacks"
+        v-for="(feedback, index) in feedbacks"
         :key="feedback.feedback_id"
-        class="flex justify-content-between max-w-30rem"
+        class="d-flex flex-column gap-3"
       >
-        <p class="">{{ feedback.content }}</p>
-        <Rating :model-value="feedback.score" readonly :cancel="false" />
+        <span class="font-bold">{{ feedback.name }}</span>
+        <div class="flex md:flex-row flex-column justify-content-between max-w-30rem">
+          <p class="">{{ feedback.content }}</p>
+          <Rating :model-value="feedback.score" readonly :cancel="false" />
+        </div>
+        <divider v-if="index !== feedbacks.length - 1" />
       </li>
     </ul>
   </div>
@@ -31,9 +47,10 @@ import { ref } from 'vue';
 import ProductsModel from '@/api/models/ProductsModel.js';
 import useAsyncHandler from '@/composables/useAsyncHandler.js';
 import { useToast } from 'primevue/usetoast';
-import InputGroup from 'primevue/inputgroup';
+import Divider from 'primevue/divider';
 
 const toast = useToast();
+const emit = defineEmits(['onAddNewFeedback']);
 
 const props = defineProps({
   productId: {
@@ -48,18 +65,10 @@ const props = defineProps({
 
 const { loading, executeAsyncOperation } = useAsyncHandler();
 const rating = ref({ score: 0, content: '' });
+const name = ref('');
 
-// const feedbacks = ref([]);
-// async function getFeedback() {
-//   const res = await ProductsModel.getFeedbacks(props.productId);
-//   feedbacks.value = res.data;
-// }
-//
-// onMounted(() => {
-//   getFeedback();
-// });
 async function sendFeedback() {
-  const data = { ...rating.value, product_id: props.productId, service_id: 1 };
+  const data = { ...rating.value, name: name.value, product_id: props.productId, service_id: null };
 
   const onCatch = () => {
     toast.add({
@@ -69,7 +78,10 @@ async function sendFeedback() {
     });
   };
 
-  const onSuccess = () => {
+  const onSuccess = async () => {
+    emit('onAddNewFeedback');
+    rating.value = { score: 0, content: '' };
+    name.value = '';
     toast.add({
       severity: 'success',
       summary: `Ваш отзыв успешно отправлен`,

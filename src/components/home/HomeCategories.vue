@@ -1,16 +1,17 @@
 <template>
   <div class="grid">
-    <div
+    <router-link
       v-for="card in cards"
       :key="card.title"
-      class="col-4 border-round relative text-center cursor-pointer p-3"
+      class="col-12 md:col-4 border-round relative text-center cursor-pointer p-3"
       :class="$style.card"
+      :to="card.to"
     >
       <img :src="card.img" :alt="card.title" class="w-full border-round" :class="$style.img" />
       <div class="text-xl transition-duration-300 w-full px-2 font-bold centerBlock text-white">
         {{ card.title }}
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -27,32 +28,32 @@ const cards = computed(() => [
   {
     title: 'Кузовные детали',
     img: carPartsImage,
-    to: ''
+    to: '/products?category_id=9'
   },
   {
     title: 'Аксессуары',
     img: carAccessoriesImage,
-    to: ''
+    to: '/products?category_id=7'
   },
   {
     title: 'Масла и автохимия',
     img: carOilsImage,
-    to: ''
+    to: '/products?category_id=8'
   },
   {
     title: 'Автостекла',
     img: carGlassesImage,
-    to: ''
+    to: '/products?category_id=10'
   },
   {
     title: 'Шины и диски',
     img: carTiresImage,
-    to: ''
+    to: '/products?category_id=5'
   },
   {
     title: 'Электроника',
     img: carElectronicsImage,
-    to: ''
+    to: '/products?category_id=11'
   }
 ]);
 </script>

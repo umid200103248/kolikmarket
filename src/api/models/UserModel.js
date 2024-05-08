@@ -18,8 +18,8 @@ export default class UserModel {
    * @param password_confirmation {string}
    * @returns {Promise<any>}
    */
-  static register({ name, email, password, password_confirmation }) {
-    const data = { name, email, password, password_confirmation };
+  static register({ name, email, password, password_confirmation, phone }) {
+    const data = { name, email, password, password_confirmation, phone };
 
     return ApiEndpoint.makeRequest('POST', '/auth/register', data);
   }
@@ -61,5 +61,9 @@ export default class UserModel {
 
   static getProducts() {
     return ApiEndpoint.makeRequest('GET', '/profiles/products');
+  }
+
+  static getProductById(productId) {
+    return ApiEndpoint.makeRequest('GET', `/profiles/products/${productId}`);
   }
 }

@@ -18,7 +18,10 @@ export const useUserStore = defineStore(
     }
 
     async function register(data) {
-      const res = await UserModel.register(data);
+      const res = await UserModel.register({
+        ...data,
+        phone: data.phone.replaceAll('-', '').replaceAll('(', '').replaceAll(')', '')
+      });
       authToken.value = res.data.token;
       // await getProfile();
     }

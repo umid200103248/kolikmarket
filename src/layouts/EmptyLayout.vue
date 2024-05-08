@@ -1,6 +1,7 @@
 <template>
   <RouterView />
-  <Toast />
+  <Toast class="hidden md:block" />
+  <Toast class="md:hidden block" position="top-center" />
 </template>
 
 <script setup>

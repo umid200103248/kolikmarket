@@ -2,7 +2,8 @@
   <AppHeader />
   <RouterView />
   <AppFooter />
-  <Toast />
+  <Toast class="hidden md:block" />
+  <Toast class="md:hidden block" position="top-center" />
 </template>
 
 <script setup>

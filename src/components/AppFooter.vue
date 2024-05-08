@@ -11,10 +11,15 @@ const socialLinks = computed(() => [
 
 const navLinks = computed(() => [
   {
-    title: 'Компания',
+    title: 'О нас',
     links: [
-      { to: '/', text: 'О нас' },
-      { to: '/', text: 'Контакты' }
+      {
+        to: 'https://www.linkedin.com/in/zhandos-saparbayev-878478231',
+        text: 'Zhandos Saparbayev'
+      },
+      { to: 'https://www.linkedin.com/in/serik-onbolsyn-146a94270', text: 'Serik Onbolsyn' },
+      { to: 'https://www.instagram.com/dosjanovv_01?igsh=anZzMTVkbmxyY2pq', text: 'Umid Jubayev' },
+      { to: 'https://www.instagram.com/sanzharaltynbaev', text: 'Sanzhar Altynbaev' }
     ]
   },
   {
@@ -56,17 +61,28 @@ const navLinks = computed(() => [
           </li>
         </ul>
       </div>
-      <div class="col-7 flex justify-content-between">
+      <div
+        class="col-12 md:col-7 flex justify-content-between flex-column md:flex-row gap-3 mt-5 md:mt-0"
+      >
         <div v-for="link in navLinks" :key="link.title">
-          <div class="text-lg font-bold text-black-alpha-90 pb-4">{{ link.title }}</div>
+          <div class="text-lg font-bold text-black-alpha-90 pb-0 md:pb-4">{{ link.title }}</div>
           <ul>
             <li v-for="sublink in link.links" :key="sublink.text">
-              <RouterLink
+              <a
+                v-if="sublink.to.includes('http')"
+                :href="sublink.to"
+                target="_blank"
+                class="inline-block py-1 hover:text-primary text-black-alpha-70"
+              >
+                {{ sublink.text }}
+              </a>
+              <router-link
+                v-else
                 :to="sublink.to"
                 class="inline-block py-1 hover:text-primary text-black-alpha-70"
               >
                 {{ sublink.text }}
-              </RouterLink>
+              </router-link>
             </li>
           </ul>
         </div>

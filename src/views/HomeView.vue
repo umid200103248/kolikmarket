@@ -10,14 +10,31 @@ import carSellerImage from '@/assets/images/banners/car-seller.jpeg';
     <HomeCarousel class="my-8" />
     <HomeCategories class="mb-8" />
     <HomeCarBrands />
-    <div class="flex justify-content-center gap-8 align-items-center my-8">
-      <img :src="carSellerImage" width="500px" alt="car seller" class="border-round" />
-      <div class="w-30rem">
-        <div class="text-3xl font-bold">Увеличьте свою клиентскую базу с нами!</div>
-        <div class="text-lg my-5">
+    <div class="flex flex-column md:flex-row justify-content-center gap-8 align-items-center my-8">
+      <img
+        :src="carSellerImage"
+        width="500px"
+        alt="car seller"
+        class="border-round hidden md:block"
+      />
+      <img
+        :src="carSellerImage"
+        width="90%"
+        alt="car seller"
+        class="border-round md:hidden block"
+      />
+      <div class="md:w-30rem w-20rem flex flex-column align-items-center md:align-items-start">
+        <div class="md:text-3xl text-xl font-bold text-center md:text-left">
+          Увеличьте свою клиентскую базу с нами!
+        </div>
+        <div class="md:text-lg text-md my-5">
           Станьте частью нашего маркетплейса и получите доступ к тысячам потенциальных покупателей.
         </div>
-        <Button>Стать продвацом</Button>
+        <Button
+          ><router-link style="color: inherit; text-decoration: none" to="/register"
+            >Стать продвацом</router-link
+          ></Button
+        >
       </div>
     </div>
   </div>

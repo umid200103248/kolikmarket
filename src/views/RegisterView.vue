@@ -15,7 +15,8 @@ const form = ref({
   email: '',
   name: '',
   password: '',
-  password_confirmation: ''
+  password_confirmation: '',
+  phone: ''
 });
 
 async function onSubmit() {
@@ -59,6 +60,9 @@ async function onSubmit() {
         <InputText id="name" v-model="form.name" class="w-full mb-3" />
         <label for="email" class="block text-900 font-medium mb-2">E-mail</label>
         <InputText id="email" v-model="form.email" type="email" class="w-full mb-3" />
+
+        <label for="phone" class="block text-900 font-medium mb-2">Телефон</label>
+        <InputMask id="phone" v-model="form.phone" class="w-full mb-3" mask="+7-(999)-999-99-99" />
         <label for="password" class="block text-900 font-medium mb-2">Пароль</label>
         <Password
           id="password"

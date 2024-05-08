@@ -9,7 +9,7 @@
         v-for="product in products"
         :key="product.product_id"
         :to="{ name: 'product.details', params: { productId: product.product_id } }"
-        class="col-4 block"
+        class="md:col-4 col-12"
       >
         <div class="flex flex-column gap-3 bg-gray-50 border-round p-3 h-full">
           <img
@@ -35,7 +35,7 @@
       </RouterLink>
     </div>
     <div v-else class="grid">
-      <div v-for="idx in 9" :key="idx" class="col-4 block">
+      <div v-for="idx in 9" :key="idx" class="md:col-4 col-12 block">
         <div class="flex flex-column gap-3 bg-gray-50 border-round p-3 h-full">
           <Skeleton width="100" height="12rem" />
           <Skeleton width="10rem" class="mb-1" />
@@ -55,11 +55,9 @@ import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router';
 import noPhotoImage from '@/assets/images/no-photo.png';
 import { HelpersUtil } from '../helpers/index.js';
-import { useToast } from 'primevue/usetoast';
 import useAsyncHandler from '@/composables/useAsyncHandler.js';
 
 const productsStore = useProductsStore();
-const toast = useToast();
 
 const { products } = storeToRefs(productsStore);
 
@@ -69,14 +67,6 @@ const route = useRoute();
 
 const title = computed(() => route.query.category_name ?? 'Все продукты');
 
-async function addToCart(product) {
-  toast.add({
-    severity: 'success',
-    summary: `Продукт ${product.product_name} добавлен в корзину`,
-    life: 4000
-  });
-}
-
 watch(
   () => route.fullPath,
   () => getProducts()
@@ -84,7 +74,6 @@ watch(
 
 async function getProducts() {
   const params = route.query;
-  console.log(route.query);
   await executeAsyncOperation(productsStore.getProducts, [params]);
 }
 
